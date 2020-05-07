@@ -1,0 +1,33 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_tags %}
+<div class="container">
+
+    {% block content %}
+    <h1>Hello this is the login page</h1>
+    {% if form.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+    {% endfor %}
+    {% endfor %}
+
+    {% endif %}
+    <div class="row">
+        <div class="col-s-6">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                <span class="text-muted">Forgot Password? <a href="{% url 'password_reset' %}">Click Here</a></span>
+                <br>
+                <br>
+                <button class="btn btn-primary">Login</button>
+                <br>
+
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
+
+</div>

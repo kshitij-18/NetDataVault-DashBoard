@@ -1,0 +1,42 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<style>
+    .list-domain-main {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .list-headings {
+        justify-content: center;
+    }
+
+    .list-group {
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<div class="list-domain-main">
+    <div class="list-headings">
+        <h1>List Of Domains</h1>
+    </div>
+    <div class="list-group">
+
+        {% if zone_list %}
+
+        {% for zone in zone_list %}
+        <a href="{% url 'waf-detail' zone.1  %}" class="list-group-item">
+            {{ zone.1 }}
+        </a>
+        {% endfor %}
+
+        {% else %}
+        <span class='text-muted'>Add a zone</span>
+        {% endif %}
+
+
+
+    </div>
+</div>
+{% endblock content %}
