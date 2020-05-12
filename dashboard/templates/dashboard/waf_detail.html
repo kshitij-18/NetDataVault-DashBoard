@@ -2,12 +2,18 @@
 
 {% block content %}
 <style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .main-tabs {
         display: flex;
         margin-bottom: 30px;
         padding: 10px;
         flex-direction: row;
-
+        align-items: flex-start;
 
     }
 
@@ -27,6 +33,19 @@
 
     .tabs-link {
         margin: 20px;
+    }
+
+    .info-tabs {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .info-tabs-left {
+        display: flex;
+        flex-direction: column;
     }
 </style>
 <div class="main-tabs">
@@ -233,7 +252,78 @@
 
 
 </div>
-<p>
-    {{ data }}
-</p>
+<!--Unique Visitors-->
+<div class="info-tabs">
+    <div class="info-tabs-left">
+        <div class="tab-heading">
+            <span>Unique Visitors
+                <span>
+        </div>
+        <div class="tab-data">
+            <h2 style="font-size: 24px;">
+                {{ data.uniques.all }}
+            </h2>
+        </div>
+    </div>
+</div>
+<hr>
+<!--Total Requests-->
+<div class="info-tabs">
+    <div class="info-tabs-left">
+        <div class="tab-heading">
+            <span>Total Requests
+                <span>
+        </div>
+        <div class="tab-data">
+            <h2 style="font-size: 24px;">
+                {{ data.requests.all }}
+            </h2>
+        </div>
+    </div>
+</div>
+<hr>
+<!--Data Served-->
+<div class="info-tabs">
+    <div class="info-tabs-left">
+        <div class="tab-heading">
+            <span>Total Data Served
+                <span>
+        </div>
+        <div class="tab-data">
+            <h2 style="font-size: 24px;">
+                {{ data_served }}
+            </h2>
+        </div>
+    </div>
+</div>
+<hr>
+<!--Percent cached-->
+<div class="info-tabs">
+    <div class="info-tabs-left">
+        <div class="tab-heading">
+            <span>Percent Cached
+                <span>
+        </div>
+        <div class="tab-data">
+            <h2 style="font-size: 24px;">
+                {{ percent_cached }}%
+            </h2>
+        </div>
+    </div>
+</div>
+<hr>
+<!--Data Cached-->
+<div class="info-tabs">
+    <div class="info-tabs-left">
+        <div class="tab-heading">
+            <span>Data Cached
+                <span>
+        </div>
+        <div class="tab-data">
+            <h2 style="font-size: 24px;">
+                {{ data_cached }}
+            </h2>
+        </div>
+    </div>
+</div>
 {% endblock content %}

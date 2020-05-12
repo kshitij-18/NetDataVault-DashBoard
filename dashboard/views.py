@@ -6,6 +6,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from passlib.hash import pbkdf2_sha256
 from . models import AuthKeyModel
 from . utility import encode_string, decode_string, CloudFlareWork
+from hurry.filesize import size, alternative
+from bokeh.plotting import figure, output_file, show
+from bokeh.embed import components
 # Create your views here.
 
 
@@ -130,7 +133,27 @@ def zone_details(request, zone_name):
     api_key = get_auth_id_helper(request)
     cf = CloudFlareWork(api_key, request.user.email)
     data = cf.get_zone_analytics_24_hrs(zone_name)
+    data_served_int = data.get('bandwidth').get('all')
+    data_served = size(data_served_int, system=alternative)
+    percent_cached_float = (data.get('bandwidth').get(
+        'cached')/data.get('bandwidth').get('all'))*100
+    percent_cached = float("{:.2f}".format(percent_cached_float))
+    data_cached_int = data.get('bandwidth').get('cached')
+    data_cached = size(data_cached_int, system=alternative)
     front = {
-        'data': data
+        'data': data,
+        'data_served': data_served,
+        'percent_cached': percent_cached,
+        'data_cached': data_cached
     }
     return render(request, 'dashboard/waf_detail.html', front)
+
+
+def graph_try(request):
+    x = [1, 2, 3, 4, 5]
+    y = [1, 2, 3, 4, 5]
+    plot = figure(title='Line graph', x_axis_label='X-Axis',
+                  plot_width=400, plot_height=400)
+    plot.line(x, y, line_width=2)
+    script, div = components(plot)
+    return render(request, 'dashboard/graph_try.html', {'script': script, 'div': div})

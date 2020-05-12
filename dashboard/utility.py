@@ -38,7 +38,7 @@ class CloudFlareWork():
         cf = CloudFlare.CloudFlare(email=self.email, token=self.api_key)
         zone_id = self.get_zone_id(zone_name)
         data = cf.zones.analytics.dashboard(
-            zone_id, params={'since': -43200}).get('totals')
+            zone_id, params={'since': -1440}).get('totals')
         return data
 
 
