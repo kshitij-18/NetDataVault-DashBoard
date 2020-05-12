@@ -47,6 +47,10 @@
         display: flex;
         flex-direction: column;
     }
+
+    .chart-main {
+        margin-left: 100px;
+    }
 </style>
 <div class="main-tabs">
     <div class="tabs">
@@ -265,6 +269,9 @@
             </h2>
         </div>
     </div>
+    <div class='chart-main'>
+        <canvas id="myChart-visitors" class="chart" width="600" height="200"></canvas>
+    </div>
 </div>
 <hr>
 <!--Total Requests-->
@@ -279,6 +286,9 @@
                 {{ data.requests.all }}
             </h2>
         </div>
+    </div>
+    <div class='chart-main'>
+        <canvas id="myChart-requests" class="chart" width="600" height="200"></canvas>
     </div>
 </div>
 <hr>
@@ -295,6 +305,9 @@
             </h2>
         </div>
     </div>
+    <div class='chart-main'>
+        <canvas id="myChart-data-served" class="chart" width="600" height="200"></canvas>
+    </div>
 </div>
 <hr>
 <!--Percent cached-->
@@ -309,6 +322,9 @@
                 {{ percent_cached }}%
             </h2>
         </div>
+    </div>
+    <div class='chart-main'>
+        <canvas id="myChart-percent-cached" class="chart" width="600" height="200"></canvas>
     </div>
 </div>
 <hr>
@@ -325,5 +341,215 @@
             </h2>
         </div>
     </div>
+    <div class='chart-main'>
+        <canvas id="myChart-data-cached" class="chart" width="600" height="200"></canvas>
+    </div>
+
 </div>
+
+
 {% endblock content %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        var ctx = document.getElementById('myChart-visitors').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ since_until| safe }},
+        datasets: [{
+            label: '# of Visitors',
+            data: {{ unique_list| safe }},
+        backgroundColor: [
+            '#D6E9F5'
+        ],
+        borderColor: [
+            '#5C9AC2'
+        ],
+        borderWidth: 1,
+        lineTension: 0.1
+                }]
+            },
+        options: {
+        scales: {
+            yAxes: [{
+                display: false
+            }],
+            xAxes: [{
+                ticks: { display: false, }
+
+
+            }]
+
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        showXAxisLabel: false,
+    }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var ctx = document.getElementById('myChart-requests').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ since_until| safe }},
+        datasets: [{
+            label: '# of Requests',
+            data: {{ requests_list| safe }},
+        backgroundColor: [
+            '#D6E9F5'
+        ],
+        borderColor: [
+            '#5C9AC2'
+        ],
+        borderWidth: 1,
+        lineTension: 0.1
+                }]
+            },
+        options: {
+        scales: {
+            yAxes: [{
+                display: false
+            }],
+            xAxes: [{
+                ticks: { display: false, }
+
+
+            }]
+
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        showXAxisLabel: false,
+    }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var ctx = document.getElementById('myChart-data-served').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ since_until| safe }},
+        datasets: [{
+            label: 'Data Served in MB',
+            data: {{ data_served_graph| safe }},
+        backgroundColor: [
+            '#D6E9F5'
+        ],
+        borderColor: [
+            '#5C9AC2'
+        ],
+        borderWidth: 1,
+        lineTension: 0.1
+                }]
+            },
+        options: {
+        scales: {
+            yAxes: [{
+                display: false
+            }],
+            xAxes: [{
+                ticks: { display: false, }
+
+
+            }]
+
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        showXAxisLabel: false,
+    }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var ctx = document.getElementById('myChart-percent-cached').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ since_until| safe }},
+        datasets: [{
+            label: 'Data Cached in percent',
+            data: {{ percent_cached_graph| safe }},
+        backgroundColor: [
+            '#D6E9F5'
+        ],
+        borderColor: [
+            '#5C9AC2'
+        ],
+        borderWidth: 1,
+        lineTension: 0.1
+                }]
+            },
+        options: {
+        scales: {
+            yAxes: [{
+                display: false
+            }],
+            xAxes: [{
+                ticks: { display: false, }
+
+
+            }]
+
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        showXAxisLabel: false,
+    }
+        });
+
+    });
+
+    $(document).ready(function () {
+        var ctx = document.getElementById('myChart-data-cached').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ since_until| safe }},
+        datasets: [{
+            label: 'Data Cached in Kb',
+            data: {{ data_cached_graph| safe }},
+        backgroundColor: [
+            '#D6E9F5'
+        ],
+        borderColor: [
+            '#5C9AC2'
+        ],
+        borderWidth: 1,
+        lineTension: 0.1
+                }]
+            },
+        options: {
+        scales: {
+            yAxes: [{
+                display: false
+            }],
+            xAxes: [{
+                ticks: { display: false, }
+
+
+            }]
+
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        showXAxisLabel: false,
+    }
+        });
+
+    });
+</script>
+{% endblock scripts %}

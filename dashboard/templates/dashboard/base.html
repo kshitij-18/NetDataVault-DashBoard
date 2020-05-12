@@ -9,11 +9,18 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href=”http://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.css" rel=”stylesheet” type=”text/css”>
-    <link href=”http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.css" rel=”stylesheet” type=”text/css”>
-    <script src=”http://cdn.pydata.org/bokeh/release/bokeh-1.0.4.min.js"></script>
-    <script src=”http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.js"></script>
-    {{ script | safe }}
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css'
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+        integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+        integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+
     <title>Hello, world!</title>
 </head>
 
@@ -66,22 +73,25 @@
         </div>
     </nav>
 
-    {% if messages %}
 
-    {% for message in messages %}
-    <div class="alert alert-primary" role="alert">
-        {{ message }}
-    </div>
-    {% endfor %}
-
-    {% endif %}
 
     <div class=" container">
+        {% if messages %}
+
+        {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% endif %}
         {% block content %}
 
         {% endblock content %}
     </div>
+    {% block scripts %}
 
+    {% endblock scripts %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -93,8 +103,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -131,7 +131,11 @@ def get_auth_id_helper(request):
 
 def zone_details(request, zone_name):
     api_key = get_auth_id_helper(request)
+
+    # passing in the details of the zone
     cf = CloudFlareWork(api_key, request.user.email)
+
+    # passing the total data to the template
     data = cf.get_zone_analytics_24_hrs(zone_name)
     data_served_int = data.get('bandwidth').get('all')
     data_served = size(data_served_int, system=alternative)
@@ -140,20 +144,30 @@ def zone_details(request, zone_name):
     percent_cached = float("{:.2f}".format(percent_cached_float))
     data_cached_int = data.get('bandwidth').get('cached')
     data_cached = size(data_cached_int, system=alternative)
+
+    # getting data for graph
+
+    since_until, unique_list = cf.get_zone_analytics_timeseries_visitors(
+        zone_name)
+    _, requests_list = cf.get_zone_analytics_timeseries_requests(
+        zone_name)
+
+    data_served_graph = cf.get_zone_analytics_timeseries_data_served(zone_name)
+    percent_cached_graph = cf.get_zone_analytics_timeseries_percent_cached(
+        zone_name)
+
+    data_cached_graph = cf.get_zone_analytics_timeseries_data_cached(zone_name)
+
     front = {
         'data': data,
         'data_served': data_served,
         'percent_cached': percent_cached,
-        'data_cached': data_cached
+        'data_cached': data_cached,
+        'requests_list': requests_list,
+        'since_until': since_until,
+        'unique_list': unique_list,
+        'data_served_graph': data_served_graph,
+        'percent_cached_graph': percent_cached_graph,
+        'data_cached_graph': data_cached_graph
     }
     return render(request, 'dashboard/waf_detail.html', front)
-
-
-def graph_try(request):
-    x = [1, 2, 3, 4, 5]
-    y = [1, 2, 3, 4, 5]
-    plot = figure(title='Line graph', x_axis_label='X-Axis',
-                  plot_width=400, plot_height=400)
-    plot.line(x, y, line_width=2)
-    script, div = components(plot)
-    return render(request, 'dashboard/graph_try.html', {'script': script, 'div': div})
