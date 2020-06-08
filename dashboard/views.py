@@ -157,7 +157,7 @@ def zone_details(request, zone_name):
         zone_name)
 
     data_cached_graph = cf.get_zone_analytics_timeseries_data_cached(zone_name)
-
+    since_first_date, since_last_date = cf.get_date(zone_name)
     front = {
         'data': data,
         'data_served': data_served,
@@ -168,6 +168,8 @@ def zone_details(request, zone_name):
         'unique_list': unique_list,
         'data_served_graph': data_served_graph,
         'percent_cached_graph': percent_cached_graph,
-        'data_cached_graph': data_cached_graph
+        'data_cached_graph': data_cached_graph,
+        'since_first_date': since_first_date,
+        'since_last_date': since_last_date
     }
     return render(request, 'dashboard/waf_detail.html', front)

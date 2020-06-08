@@ -131,6 +131,39 @@ class CloudFlareWork():
             data_to_give.append(data_served_final)
         return data_to_give
 
+    def get_date(self, zone_name):
+        since_until_list, _ = self.get_zone_analytics_timeseries_visitors(
+            zone_name)
+        month_mapping = {'01': 'Jan',
+                         '02': 'Feb',
+                         '03': 'Mar',
+                         '04': 'Apr',
+                         '05': 'May',
+                         '06': 'Jun',
+                         '07': 'Jul',
+                         '08': 'Aug',
+                         '09': 'Sept',
+                         '10': 'Oct',
+                         '11': 'Nov',
+                         '12': 'Dec'
+                         }
+        # Finding the previous day's date
+        since_until_first = since_until_list[0]
+        since_first, until_first = since_until_first
+        since_first_date = since_first.split('T')[0]
+        since_first_date_list = since_first_date.split('-')
+        since_first_date_final = since_first_date_list[-1] + \
+            ' ' + month_mapping[since_first_date_list[-2]]
+
+        # Finding the current day's date
+        since_until_last = since_until_list[-1]
+        since_last, _ = since_until_last
+        since_last_date = since_last.split('T')[0]
+        since_last_date_list = since_last_date.split('-')
+        since_last_date_final = since_last_date_list[-1] + \
+            ' '+month_mapping[since_last_date_list[-2]]
+        return since_first_date_final, since_last_date_final
+
 
 def encode_string(normal_string):
     # this will return binary form of string

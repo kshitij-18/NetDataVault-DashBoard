@@ -51,6 +51,14 @@
     .chart-main {
         margin-left: 100px;
     }
+
+    .dates {
+        display: flex;
+    }
+
+    .dates-show {
+        justify-content: flex-end;
+    }
 </style>
 <div class="main-tabs">
     <div class="tabs">
@@ -256,6 +264,13 @@
 
 
 </div>
+<div class='dates'>
+    <div class='dates-show'>
+        <span>
+            {{ since_first_date }} - {{ since_last_date }}
+        </span>
+    </div>
+</div>
 <!--Unique Visitors-->
 <div class="info-tabs">
     <div class="info-tabs-left">
@@ -346,7 +361,9 @@
     </div>
 
 </div>
-
+<div>
+    {{ since_first_date }} - {{ since_last_date }}
+</div>
 
 {% endblock content %}
 
