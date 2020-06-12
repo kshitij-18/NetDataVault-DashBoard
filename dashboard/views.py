@@ -170,6 +170,14 @@ def zone_details(request, zone_name):
         'percent_cached_graph': percent_cached_graph,
         'data_cached_graph': data_cached_graph,
         'since_first_date': since_first_date,
-        'since_last_date': since_last_date
+        'since_last_date': since_last_date,
+        'zone_name': zone_name
     }
     return render(request, 'dashboard/waf_detail.html', front)
+
+
+def analytics_view(request, zone_name):
+    front = {
+        'zone_name': zone_name
+    }
+    return render(request, 'dashboard/analytics.html', front)

@@ -1,0 +1,4 @@
+Things which I could not do:
+1. Set the proper time format which appears on the graph on mouse-hover
+2. Update the page with new information like updating the page information for the last 24hrs,
+    last 1 week, and last 1 month.

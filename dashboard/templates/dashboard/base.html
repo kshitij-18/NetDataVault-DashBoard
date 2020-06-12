@@ -20,6 +20,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+
+
 
     <title>Hello, world!</title>
 </head>
@@ -43,7 +47,7 @@
             </ul>
         </div>
         <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto" href="{% url 'home' %}">Navbar</a>
+            <a class="navbar-brand mx-auto" href="{% url 'home' %}">NGBPS AiCyberWatch</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -73,21 +77,22 @@
         </div>
     </nav>
 
+    <div>
 
+        <div class=" container">
+            {% if messages %}
 
-    <div class=" container">
-        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
 
-        {% for message in messages %}
-        <div class="alert alert-primary" role="alert">
-            {{ message }}
+            {% endif %}
+            {% block content %}
+
+            {% endblock content %}
         </div>
-        {% endfor %}
-
-        {% endif %}
-        {% block content %}
-
-        {% endblock content %}
     </div>
     {% block scripts %}
 

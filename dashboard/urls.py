@@ -17,4 +17,6 @@ urlpatterns = [
     path('waf/auth_key_collect/', views.collect_auth_key, name='auth_key_collect'),
     path('waf/home/', views.waf_home, name='waf_home'),
     path('waf/detail/<zone_name>/', views.zone_details, name='waf-detail'),
+    path('waf/detail/analytics/<zone_name>/',
+         views.analytics_view, name='analytics')
 ]

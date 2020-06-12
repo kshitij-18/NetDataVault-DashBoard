@@ -20,4 +20,12 @@
             eros</a>
     </div>
 </div>
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoia3NoaXRpam5hdGgiLCJhIjoiY2tiOWcxa2NmMGR4MDJybzhhZm1odHljNCJ9.r1g4GZ_C-s1XYtkRj562GA';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11'
+    });
+</script>
 {% endblock content %}
